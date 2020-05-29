@@ -27,7 +27,7 @@ Load data into table
 
     make import
 
-Create a thresholded directed temporal network (snapshots) where only users are regarded that participated in at least 60% of the scans. Contacts are only counted if the bluetooth signal strength (rssi) has a value of -75dB or larger (corresponds to 2-3m distance).
+Create a thresholded directed temporal network (snapshots) where only users are regarded that participated in at least 40% (60%, respectively) of the scans. Contacts are only counted if the bluetooth signal strength (rssi) has a value of -75dB (-80dB, respecctively) or larger (corresponds to a maximum of 1.5m to 2m, respectively, [see this study](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0100915)).
 
     make threshsnaps
 
