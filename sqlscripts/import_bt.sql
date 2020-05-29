@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS `dtu`.`btsymmetric` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `timestamp` int(11) unsigned DEFAULT NULL,
-  `src` int(11) unsigned DEFAULT NULL,
-  `trg` int(11) DEFAULT NULL,
-  `value` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `timestamp` int unsigned DEFAULT NULL,
+  `src` int unsigned DEFAULT NULL,
+  `trg` int DEFAULT NULL,
+  `value` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_scan_idx` (`timestamp`,`src`,`trg`),
   KEY `timestamp_idx` (`timestamp`),
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `dtu`.`btsymmetric` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-LOAD DATA LOCAL INFILE
+LOAD DATA INFILE
          'data/bt_symmetric.csv'
 REPLACE INTO TABLE
         `dtu`.`btsymmetric`

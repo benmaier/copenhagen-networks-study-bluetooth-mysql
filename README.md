@@ -1,6 +1,7 @@
 # Copenhagen Networks Study Bluetooth MySQL Import
 
-Import Bluetooth contact data from the Copenhagen Networks Study into your database.
+Import [Bluetooth contact data from the Copenhagen Networks Study](https://www.nature.com/articles/s41597-019-0325-x) into your database. Please cite as 
+"Interaction data from the Copenhagen Networks Study", P. Sapiezynski, A. Stopczynski, D. Dreyer Lassen & S. Lehmann, Scientific Data volume 6, Article number: 315 (2019).
 
 # Description
 
@@ -29,3 +30,39 @@ Load data into table
 Create a thresholded directed temporal network (snapshots) where only users are regarded that participated in at least 60% of the scans. Contacts are only counted if the bluetooth signal strength (rssi) has a value of -75dB or larger (corresponds to 2-3m distance).
 
     make threshsnaps
+
+# Errors during import
+
+If you're getting security errors, check 
+
+* https://stackoverflow.com/a/40419548/4177832
+* https://stackoverflow.com/a/61284172/4177832
+* https://stackoverflow.com/a/51532736/4177832
+
+# Check participation in scans
+
+One may want to get rid of nodes that did not participates in many scans (no entries for src in the bin denoted by timestamp). You find out the participation ratio as 
+
+```sql
+SELECT
+    src,
+    COUNT(DISTINCT `timestamp`) / (SELECT (MAX(`timestamp`)+300)/300 from dtu.btsymmetric) as participation_ratio
+FROM
+    `dtu`.`btsymmetric`
+GROUP BY
+    src
+```
+
+# Check signal strength distribuion
+
+```sql
+select
+	`value`,
+	count(`value`) as cnt
+from
+	`dtu`.`btsymmetric`
+where
+	`value` < 0
+Group by
+	`value`
+```
